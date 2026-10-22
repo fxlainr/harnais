@@ -1,0 +1,520 @@
+<title>HARNAIS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Mise en page : colonne de lecture unique, sommaire collant à gauche sur grand écran.
+   Deux couleurs de corde : bleu acier pour le harnais A (souveraineté), ocre pour le harnais B (boussole). */
+:root {
+  --bg: #F1F3F0;
+  --surface: #FFFFFF;
+  --ink: #1B2629;
+  --muted: #56656A;
+  --line: #CBD3D2;
+  --a: #1F6A85;
+  --a-soft: #DCEBF0;
+  --b: #A8650F;
+  --b-soft: #F5E6CF;
+  --warn: #9B2C2C;
+  --warn-soft: #F6E0DD;
+  --code-bg: #E7EBE8;
+  --f-display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181A; --surface: #182124; --ink: #E3E9E7; --muted: #98A7AB; --line: #2E3B3F;
+    --a: #6BB7D2; --a-soft: #17323C; --b: #E2A453; --b-soft: #3A2A14;
+    --warn: #E89A92; --warn-soft: #3B1F1D; --code-bg: #1E292C; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181A; --surface: #182124; --ink: #E3E9E7; --muted: #98A7AB; --line: #2E3B3F;
+  --a: #6BB7D2; --a-soft: #17323C; --b: #E2A453; --b-soft: #3A2A14;
+  --warn: #E89A92; --warn-soft: #3B1F1D; --code-bg: #1E292C; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page {
+  max-width: 1120px; margin: 0 auto; padding-block: 48px 96px;
+  display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 56px;
+}
+nav.toc { position: sticky; top: calc(24px + env(safe-area-inset-top, 0px)); align-self: start; }
+nav.toc p { font: 600 11px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; counter-reset: s; }
+nav.toc a { color: var(--muted); text-decoration: none; font-size: 14px; display: flex; gap: 8px; }
+nav.toc a::before { counter-increment: s; content: counter(s); font-family: var(--f-mono); font-size: 12px; color: var(--line); min-width: 14px; }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--ink); }
+main { min-width: 0; }
+
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(44px, 8vw, 84px); font-weight: 700; letter-spacing: -.02em; }
+h2 { font-size: clamp(26px, 3.4vw, 34px); font-weight: 600; margin-bottom: 16px; }
+h3 { font-size: 19px; font-weight: 600; margin-bottom: 6px; }
+p { margin: 0 0 14px; max-width: 66ch; }
+a { color: var(--a); }
+code { font-family: var(--f-mono); font-size: .88em; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+.eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+section { padding-block: 56px 8px; border-top: 1px solid var(--line); margin-top: 56px; }
+section:first-of-type { border-top: 0; margin-top: 0; padding-top: 0; }
+.lead { font-size: 20px; line-height: 1.5; color: var(--ink); max-width: 40ch; margin-top: 18px; }
+.meta { font: 13px/1.5 var(--f-mono); color: var(--muted); margin-top: 22px; }
+
+/* corde : la ligne qui relie les deux harnais dans l'en-tête */
+.rope { display: flex; align-items: center; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.rope span { font: 500 13px/1 var(--f-mono); padding: 7px 11px; border-radius: 999px; }
+.rope .ra { background: var(--a-soft); color: var(--a); }
+.rope .rb { background: var(--b-soft); color: var(--b); }
+.rope i { flex: 0 1 60px; height: 2px; background: repeating-linear-gradient(90deg, var(--a) 0 6px, var(--b) 6px 12px); }
+
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; min-width: 0; }
+.card p { font-size: 15px; margin: 0; }
+.card.a { border-top: 3px solid var(--a); }
+.card.b { border-top: 3px solid var(--b); }
+.tag { display: inline-block; font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
+.tag.a { color: var(--a); } .tag.b { color: var(--b); } .tag.w { color: var(--warn); }
+
+/* constat chiffré */
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); margin-block: 20px 18px; }
+.fact { padding: 16px 18px; border-left: 1px solid var(--line); min-width: 0; }
+.fact:first-child { border-left: 0; }
+.fact b { display: block; font: 600 34px/1 var(--f-display); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+.fact span { font-size: 13.5px; color: var(--muted); line-height: 1.4; display: block; }
+.fact.w b { color: var(--warn); }
+
+/* schéma d'architecture */
+.archi { display: grid; grid-template-columns: minmax(0, 1fr) 36px minmax(0, 1.15fr) 36px minmax(0, 1fr); align-items: stretch; margin-block: 22px; }
+.col { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.col > .lbl { font: 500 11px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.node { background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 10px 12px; font-size: 14px; line-height: 1.4; min-width: 0; }
+.node strong { display: block; font-family: var(--f-display); font-size: 15px; }
+.node small { color: var(--muted); font-size: 12.5px; }
+.node.core { border: 2px solid var(--a); background: var(--a-soft); }
+.node.gate { border: 2px dashed var(--a); }
+.node.agent { border-left: 3px solid var(--b); }
+.arrow { display: flex; align-items: center; justify-content: center; color: var(--muted); font: 18px/1 var(--f-mono); }
+.legend { font-size: 13px; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap; }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; border-radius: 2px; }
+.legend .l1::before { border: 2px solid var(--a); background: var(--a-soft); }
+.legend .l2::before { border: 2px dashed var(--a); }
+.legend .l3::before { border-left: 3px solid var(--b); background: var(--surface); }
+
+pre { font: 13px/1.55 var(--f-mono); background: var(--code-bg); border-radius: 6px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; }
+pre .c { color: var(--muted); }
+
+/* tableaux */
+.tw { overflow-x: auto; margin-block: 8px 18px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font: 500 11.5px/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+td code { white-space: nowrap; }
+td.y { color: var(--a); font-weight: 600; } td.n { color: var(--muted); } td.s { color: var(--warn); font-weight: 600; }
+
+/* rituels : frise de cadence */
+.cadence { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin-block: 22px 8px; position: relative; }
+.cadence::before { content: ""; position: absolute; left: 0; right: 0; top: 13px; height: 2px; background: repeating-linear-gradient(90deg, var(--a) 0 6px, var(--b) 6px 12px); }
+.step { position: relative; padding: 36px 14px 0 0; min-width: 0; }
+.step::before { content: ""; position: absolute; top: 6px; left: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 3px solid var(--b); }
+.step.auto::before { border-color: var(--a); }
+.step .freq { font: 500 11.5px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.step h3 { margin-top: 8px; }
+.step p { font-size: 14.5px; }
+.step .dur { font: 500 13px/1 var(--f-mono); color: var(--b); }
+.step.auto .dur { color: var(--a); }
+
+/* phases */
+.phases { display: grid; gap: 10px; margin-top: 14px; }
+.phase { display: grid; grid-template-columns: 92px minmax(0, 1fr) auto; gap: 16px; align-items: baseline; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 18px; }
+.phase .n { font: 600 15px/1 var(--f-display); }
+.phase p { margin: 4px 0 0; font-size: 14.5px; color: var(--muted); }
+.pill { font: 500 11.5px/1 var(--f-mono); padding: 5px 9px; border-radius: 999px; white-space: nowrap; background: var(--code-bg); color: var(--muted); }
+.pill.on { background: var(--a-soft); color: var(--a); }
+
+.principles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; padding: 0; margin: 0; list-style: none; }
+.principles li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; min-width: 0; }
+.principles b { font-family: var(--f-display); font-size: 16px; }
+
+.open { display: grid; gap: 10px; }
+.open .card { border-left: 3px solid var(--warn); }
+
+@media (max-width: 900px) {
+  .page { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 32px; }
+  nav.toc { display: none; }
+  .grid3 { grid-template-columns: minmax(0, 1fr); }
+  .archi { grid-template-columns: minmax(0, 1fr); }
+  .archi .arrow { padding-block: 6px; transform: rotate(90deg); }
+  .cadence { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .cadence::before { left: 7px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; background: repeating-linear-gradient(180deg, var(--a) 0 6px, var(--b) 6px 12px); }
+  .step { padding: 0 0 0 34px; }
+  .step::before { top: 2px; }
+}
+@media (max-width: 640px) {
+  .grid2, .principles { grid-template-columns: minmax(0, 1fr); }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fact:nth-child(3) { border-left: 0; }
+  .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .phase { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  nav.toc a { transition: color .15s; }
+}
+</style>
+
+<div class="page">
+  <nav class="toc" aria-label="Sommaire">
+    <p>Sommaire</p>
+    <ol>
+      <li><a href="#pourquoi">Pourquoi</a></li>
+      <li><a href="#harnais">Les deux harnais</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#coffre">Le coffre</a></li>
+      <li><a href="#deploiement">Déploiement sur Claude</a></li>
+      <li><a href="#fonctions">Fonctions</a></li>
+      <li><a href="#rituels">Rituels</a></li>
+      <li><a href="#conso">Coût et performance</a></li>
+      <li><a href="#principes">Principes</a></li>
+      <li><a href="#phases">Phases</a></li>
+      <li><a href="#ouvert">Points ouverts</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="haut">
+      <div class="eyebrow">Projet personnel · local-first</div>
+      <h1>HARNAIS</h1>
+      <p class="lead">Une mémoire qui m'appartient, que les IA consultent sans la posséder, et une boussole qui dit si mon usage de l'IA sert ce que je veux devenir.</p>
+      <div class="rope" aria-hidden="true">
+        <span class="ra">A · Souveraineté et anti-bulle</span><i></i><span class="rb">B · Boussole d'intentions</span>
+      </div>
+      <p class="meta">Version du 2026-10-17 · réalisé : phases 0 à 3, 36 tests verts · code : <code>~/dev/outils/harnais</code> · cahier des charges : <code>BRIEF.md</code></p>
+    </section>
+
+    <section id="pourquoi">
+      <div class="eyebrow">1 · Pourquoi</div>
+      <h2>Plus l'IA me connaît, moins je la contrôle</h2>
+      <div class="grid3">
+        <div class="card"><div class="tag w">Dépossession</div><p>La mémoire qui me décrit vit chez des fournisseurs, dans des formats que je ne lis pas.</p></div>
+        <div class="card"><div class="tag w">Enfermement</div><p>La personnalisation renforce ce que j'étais au lieu de m'aider à évoluer : une chambre d'écho à une seule personne.</p></div>
+        <div class="card"><div class="tag w">Dérive</div><p>L'usage glisse sans bruit : déléguer ce que je voulais apprendre, consommer au lieu de construire.</p></div>
+      </div>
+
+      <h3 style="margin-top:34px">Le constat sur une mémoire Claude Code réelle, inventoriée le 2026-10-17</h3>
+      <div class="facts">
+        <div class="fact"><b>78</b><span>fiches de mémoire écrites par Claude, dans 3 formats différents</span></div>
+        <div class="fact w"><b>0</b><span>fiche relue ou validée par moi</span></div>
+        <div class="fact w"><b>27</b><span>fiches rangées sous des dossiers déménagés, jamais rechargées</span></div>
+        <div class="fact w"><b>6+</b><span>fiches qui pointent vers un dossier qui n'existe plus</span></div>
+      </div>
+      <p>Le même index, chargé dans toutes les sessions, mélange vie privée, informations RH marquées « ne pas diffuser » et montants clients. Une information clé n'était connue que d'une mémoire orpheline. Rien ne périme : un événement passé reste présenté comme à venir.</p>
+    </section>
+
+    <section id="harnais">
+      <div class="eyebrow">2 · Les deux harnais</div>
+      <h2>Deux protections, une seule corde</h2>
+      <div class="grid2">
+        <div class="card a">
+          <div class="tag a">Harnais A</div>
+          <h3>Souveraineté et anti-bulle</h3>
+          <p>Une mémoire maître sur ma machine. Des scopes disent quel outil lit quoi. Un audit mensuel mesure si la mémoire rétrécit les réponses. Une mémoire ancienne peut être « graduée » : conservée, mais plus injectée.</p>
+        </div>
+        <div class="card b">
+          <div class="tag b">Harnais B</div>
+          <h3>Boussole d'intentions</h3>
+          <p>Une charte de valeurs et d'intentions, écrite par entretien. Chaque session IA est rattachée à une intention. Un rapport hebdomadaire montre l'écart entre l'usage réel et les priorités déclarées.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="eyebrow">3 · Architecture</div>
+      <h2>Le coffre au centre, les IA en périphérie</h2>
+      <p>Les fichiers du coffre sont la seule source de vérité. Les IA n'y accèdent que par une passerelle qui applique les scopes. Les agents lisent le coffre et n'y écrivent que des propositions. Le contenu des sessions est lu par un modèle local : il ne quitte jamais la machine.</p>
+
+      <div class="archi" role="img" aria-label="Schéma : les sources alimentent le coffre via le hook, la file d'attente et le tagueur local ; les clients IA lisent le coffre via la passerelle MCP ; les agents produisent rapports et propositions.">
+        <div class="col">
+          <div class="lbl">Entrées</div>
+          <div class="node"><strong>Sessions Claude Code</strong><small>hook <code>SessionEnd</code> → file d'attente, moins de 100 ms</small></div>
+          <div class="node agent"><strong>Tagueur local</strong><small>LM Studio, Gemma 4 E4B, toutes les heures, 0 $</small></div>
+          <div class="node"><strong>Export claude.ai</strong><small>import manuel</small></div>
+          <div class="node"><strong>Mémoire Claude existante</strong><small>67 fiches importées en propositions</small></div>
+          <div class="node"><strong>Entretien <code>/charte</code></strong><small>valeurs et intentions</small></div>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="col">
+          <div class="lbl">Cœur</div>
+          <div class="node core"><strong>Coffre <code>~/harnais-coffre</code></strong><small>Markdown + YAML, versionné par Git, chiffrable (phase 3). Hors iCloud.</small></div>
+          <div class="node"><strong>Index SQLite</strong><small>jetable, reconstruit à l'identique par <code>harnais reindex</code></small></div>
+          <div class="node gate"><strong>Passerelle MCP <code>harnais</code></strong><small>applique <code>scopes.yaml</code>, client fixé par <code>HARNAIS_CLIENT</code>, chaque accès journalisé</small></div>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="col">
+          <div class="lbl">Usages</div>
+          <div class="node"><strong>Claude Code</strong><small>lit le contexte autorisé, propose des mémoires</small></div>
+          <div class="node agent"><strong>Agents d'analyse</strong><small>tagueur, gardien, auditeur de bulle, contradicteur, archiviste</small></div>
+          <div class="node"><strong>Rapports et revue</strong><small>hebdo, mensuel, trimestriel</small></div>
+        </div>
+      </div>
+      <div class="legend"><span class="l1">source de vérité</span><span class="l2">contrôle d'accès</span><span class="l3">agent (API Anthropic ou Ollama local)</span></div>
+
+      <h3 style="margin-top:30px">Pile technique</h3>
+      <p>Python 3.12 géré par <code>uv</code>, CLI <code>typer</code>, SDK officiel <code>mcp</code> 2.3 (<code>MCPServer</code>, transport stdio), <code>python-frontmatter</code>, <code>sqlite3</code> de la bibliothèque standard, <code>pytest</code>. Pas de framework d'agents : des modules Python simples et des sous-agents Claude Code. Le modèle se choisit par agent derrière <code>harnais/llm.py</code> : LM Studio, Anthropic ou Ollama.</p>
+    </section>
+
+    <section id="coffre">
+      <div class="eyebrow">4 · Le coffre</div>
+      <h2>Tout est un fichier que je peux lire</h2>
+      <div class="grid2">
+        <div style="min-width:0">
+<pre>~/harnais-coffre/
+├── charte/
+│   ├── valeurs.md
+│   ├── intentions/        <span class="c"># une carte par intention</span>
+│   └── a-garder-pour-moi.md
+├── memoire/               <span class="c"># validé par moi uniquement</span>
+├── propositions/          <span class="c"># en attente de revue</span>
+├── journal/AAAA/MM/       <span class="c"># une fiche par session</span>
+├── rapports/
+│   ├── hebdo/  bulle/  trimestriel/  import/
+├── scopes.yaml
+└── .harnais/              <span class="c"># ignoré par Git</span>
+    ├── index.sqlite       <span class="c"># reconstructible</span>
+    ├── file-attente/      <span class="c"># sessions à tagger</span>
+    ├── couts.jsonl        <span class="c"># chaque appel modèle</span>
+    └── acces.jsonl        <span class="c"># chaque lecture MCP</span></pre>
+        </div>
+        <div style="min-width:0">
+          <h3>Trois types de mémoire</h3>
+          <p style="font-size:15px">Ajoutés après l'inventaire du 2026-10-17, qui montrait trois natures mélangées.</p>
+          <div class="tw" style="margin-top:4px">
+            <table>
+              <thead><tr><th>Type</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td><code>fait</code></td><td>Chez ce client, l'instance de décision est le COPIL.</td></tr>
+                <tr><td><code>consigne</code></td><td>Dimensionner l'effort à la demande. Ne décroît pas sans accord.</td></tr>
+                <tr><td><code>pointeur</code></td><td>L'état du chantier est dans <code>chantier.md</code> de son dossier.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:15px">Chaque mémoire porte un <code>poids</code>, un <code>scope</code>, une date <code>valable_jusqu_au</code> et un drapeau <code>gradue</code>. Le journal ne garde jamais le transcript : un résumé de 3 à 5 lignes et des métadonnées.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:12px">Qui lit quoi : le dossier de travail décide</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Tu travailles dans</th><th>Contexte</th><th>Claude Code lit</th><th>Données sensibles</th></tr></thead>
+          <tbody>
+            <tr><td>Un dossier perso (vacances, maison)</td><td>perso</td><td>perso, famille, santé, relations, finances</td><td class="y">oui, ce contexte les nomme</td></tr>
+            <tr><td>Un dossier de gestion des personnes</td><td>rh</td><td>pro, client, RH confidentiel</td><td class="y">oui, ce contexte les nomme</td></tr>
+            <tr><td>Un dossier pro (projets, avant-ventes, code)</td><td>pro</td><td>pro, apprentissage, création, client</td><td class="y">client seulement</td></tr>
+            <tr><td>Ailleurs</td><td>défaut</td><td>pro, apprentissage, création</td><td class="s">jamais</td></tr>
+            <tr><td>Programme non déclaré, partout</td><td>aucun</td><td class="n">rien</td><td class="s">jamais</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Pour une exception, je tape <code>/contexte perso</code> : le contexte s'ouvre pour la session en cours et se referme seul à sa fin. Chaque ouverture et chaque lecture de données personnelles figure dans le rapport hebdomadaire.</p>
+      <p>Le but est la pertinence, pas le cloisonnement. Parmi les mémoires autorisées, la passerelle sert d'abord ce qui concerne le projet du dossier, puis mes consignes, puis ce qui touche l'intention du projet ou le sujet demandé, et dit pourquoi chaque mémoire a été servie. Le rapport hebdomadaire mesure aussi l'ouverture : part des sessions concentrées sur trois sujets, sujets nouveaux, et rappel de l'audit de bulle et du contradicteur.</p>
+    </section>
+
+    <section id="deploiement">
+      <div class="eyebrow">5 · Déploiement sur Claude</div>
+      <h2>Quatre points de branchement, tous sur ma machine</h2>
+      <p>Rien n'est hébergé. Le code vit dans <code>~/dev/outils/harnais</code>, le coffre dans <code>~/harnais-coffre</code>, la clé API dans un <code>.env</code> ignoré par Git. Une seule commande installe tout, et demande mon accord avant chaque branchement :</p>
+<pre>cd ~/dev/outils/harnais && ./scripts/installer.sh</pre>
+
+      <div class="grid2">
+        <div class="card a" style="min-width:0">
+          <div class="tag a">1 · Passerelle MCP</div>
+          <p style="margin-bottom:10px">Claude Code lance le serveur à la demande, en local, par stdio. Le client est fixé ici, pas par l'IA.</p>
+<pre style="margin:0">claude mcp add harnais -s user \
+  -e HARNAIS_CLIENT=claude_code -- \
+  ~/dev/outils/harnais/.venv/bin/python \
+  -m harnais.mcp_server</pre>
+        </div>
+        <div class="card a" style="min-width:0">
+          <div class="tag a">2 · Hook de fin de session</div>
+          <p style="margin-bottom:10px">Claude Code accorde 1,5 s à ses hooks de fin de session : celui-ci se contente de mettre la session en file, sans appel modèle. Il ne fait jamais échouer Claude Code.</p>
+<pre style="margin:0">"SessionEnd": [{ "hooks": [{
+  "type": "command",
+  "command": "…/.venv/bin/python
+    -m harnais.hooks.session_end" }]}]</pre>
+        </div>
+        <div class="card a">
+          <div class="tag a">3 · Taggage asynchrone</div>
+          <p>Un agent <code>launchd</code> lance <code>harnais tagger</code> toutes les heures. Il démarre LM Studio si besoin, charge le modèle, vide la file, puis libère la mémoire. Une session en échec reste en file.</p>
+        </div>
+        <div class="card b">
+          <div class="tag b">4 · Commandes et sous-agent</div>
+          <p><code>/charte</code>, <code>/revue-hebdo</code>, <code>/audit-bulle</code>, <code>/revue-trimestrielle</code>, disponibles dans tous les projets par lien symbolique. <code>/charte</code> mène l'entretien dans la conversation : une question à la fois, à partir de situations vécues, chaque carte relue avant écriture.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px"><b>claude.ai</b> n'a pas d'accès direct : un serveur stdio local ne lui est pas joignable. Il entre par l'import de son export de données (phase 2). Un accès en direct demanderait d'exposer la passerelle, ce qui contredit le local-first : voir les points ouverts.</p>
+    </section>
+
+    <section id="fonctions">
+      <div class="eyebrow">6 · Fonctions</div>
+      <h2>Ce que le système sait faire</h2>
+
+      <h3>Outils exposés aux IA par la passerelle</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Outil</th><th>Rôle</th><th>Garde-fou</th></tr></thead>
+          <tbody>
+            <tr><td><code>lire_contexte</code></td><td>Mémoires actives autorisées pour ce client, triées par poids puis pertinence</td><td>Scopes, jamais de sensible, non graduées, non périmées, accès journalisé</td></tr>
+            <tr><td><code>lire_intentions</code></td><td>Intentions actives : intitulé, pourquoi, usages souhaités et à éviter</td><td>Lecture seule</td></tr>
+            <tr><td><code>proposer_memoire</code></td><td>Suggère une mémoire</td><td>Écrit dans <code>propositions/</code>, jamais dans <code>memoire/</code></td></tr>
+            <tr><td><code>rattacher_intention</code></td><td>Rattache la session à une intention et une posture</td><td>Statut <code>propose</code></td></tr>
+            <tr><td><code>signaler_derive</code></td><td>Note qu'une demande touche ce que je veux garder pour moi</td><td>Annotation, pas de blocage</td></tr>
+            <tr><td><code>harnais://charte</code></td><td>Ressource : le texte de la charte</td><td>Lecture seule</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Agents</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Agent</th><th>Quand</th><th>Produit</th></tr></thead>
+          <tbody>
+            <tr><td>Tagueur</td><td>Toutes les heures, en local</td><td>Résumé sans montant, sujets, posture, intention proposée, tokens consommés. À revoir si la confiance est faible ou si aucune intention ne correspond</td></tr>
+            <tr><td>Gardien d'intentions</td><td>Hebdomadaire</td><td>Temps et tokens par intention face à la priorité, ratio déléguer / (apprendre + explorer), sessions sans intention, trois questions ouvertes</td></tr>
+            <tr><td>Auditeur de bulle</td><td>Mensuel, coût confirmé avant</td><td>10 questions répondues avec et sans mémoire, écarts, mémoires qui ancrent, graduations suggérées</td></tr>
+            <tr><td>Contradicteur</td><td>À la demande</td><td>3 perspectives opposées à mes positions habituelles, 3 sujets hors de mes habitudes</td></tr>
+            <tr><td>Archiviste</td><td>Hebdomadaire, sans modèle</td><td>Poids × 0,9 par semaine après 90 jours sans usage (plancher 0,2), graduations proposées</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Ligne de commande</h3>
+<pre>harnais init                      <span class="c"># crée le coffre, scopes.yaml, Git</span>
+harnais status                    <span class="c"># état, dernières sessions, propositions</span>
+harnais reindex                   <span class="c"># reconstruit l'index depuis les fichiers</span>
+harnais ingest claude-memory      <span class="c"># importe la mémoire Claude existante</span>
+harnais ingest claude-code        <span class="c"># rattrapage des transcripts</span>
+harnais ingest claude-export &lt;p&gt;  <span class="c"># export claude.ai</span>
+harnais tagger                    <span class="c"># vide la file, en local</span>
+harnais conso                     <span class="c"># tokens par intention, posture, projet</span>
+harnais tags / valider-tags       <span class="c"># revue des tags proposés</span>
+harnais propositions / valider / rejeter
+harnais rapport hebdo
+harnais audit bulle
+harnais contradicteur
+harnais graduer &lt;id&gt;              <span class="c"># conservée, plus injectée</span>
+harnais export                    <span class="c"># archive zip du coffre</span></pre>
+    </section>
+
+    <section id="rituels">
+      <div class="eyebrow">7 · Rituels</div>
+      <h2>Une seule action par semaine, moins de 5 minutes</h2>
+      <p>Tout ce qui demande un effort quotidien finit abandonné. La collecte est automatique ; je n'interviens qu'aux rendez-vous ci-dessous.</p>
+      <div class="cadence">
+        <div class="step auto">
+          <div class="freq">Chaque session</div>
+          <h3>Collecte</h3>
+          <p>Le hook met la session en file ; le tagueur local écrit la fiche dans l'heure. Je ne fais rien.</p>
+          <span class="dur">0 min</span>
+        </div>
+        <div class="step">
+          <div class="freq">Chaque semaine</div>
+          <h3><code>/revue-hebdo</code></h3>
+          <p>Je lis le rapport du gardien, consommation de tokens comprise, et je valide en lot tags et propositions de mémoire.</p>
+          <span class="dur">&lt; 5 min</span>
+        </div>
+        <div class="step">
+          <div class="freq">Chaque mois</div>
+          <h3><code>/audit-bulle</code></h3>
+          <p>Après confirmation du coût, l'auditeur mesure l'effet de ma mémoire sur les réponses. Le contradicteur peut suivre.</p>
+          <span class="dur">≈ 15 min</span>
+        </div>
+        <div class="step">
+          <div class="freq">Chaque trimestre</div>
+          <h3><code>/revue-trimestrielle</code></h3>
+          <p>Pour chaque intention : dérive à corriger, ou évolution à acter ? Les cartes changent, Git garde l'historique.</p>
+          <span class="dur">≈ 30 min</span>
+        </div>
+        <div class="step">
+          <div class="freq">Au départ, puis chaque trimestre</div>
+          <h3><code>/charte</code></h3>
+          <p>Entretien de valeurs : 4 à 6 valeurs, 5 à 10 intentions, la liste de ce que je garde pour moi.</p>
+          <span class="dur">≈ 45 min</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="conso">
+      <div class="eyebrow">8 · Coût et performance</div>
+      <h2>Neutre pour Claude Code, quelques dollars par mois au plus</h2>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Point de contact</th><th>Effet mesuré ou estimé</th></tr></thead>
+          <tbody>
+            <tr><td>Hook de fin de session</td><td>Moins de 100 ms, aucun appel modèle (budget accordé par Claude Code : 1,5 s)</td></tr>
+            <tr><td>Passerelle MCP</td><td>Démarrage à la demande, outils chargés seulement s'ils servent</td></tr>
+            <tr><td><code>lire_contexte</code></td><td>Plafonné à environ 1 500 tokens par appel, au lieu des 3 500 de l'index <code>MEMORY.md</code> chargé aujourd'hui dans chaque session</td></tr>
+            <tr><td>Tagueur local</td><td>Environ 12 s par session, 0 $, extrait plafonné à 8 000 tokens (une session pèse en moyenne 350 000 tokens)</td></tr>
+            <tr><td>Gardien, auditeur, contradicteur</td><td>Sonnet 5.5 par API : de quelques centimes par semaine à environ 0,50 $ par audit mensuel, coût affiché avant l'audit</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 style="margin-top:22px">Choix du modèle local, essai du 2026-10-17 sur 8 sessions réelles</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Modèle</th><th>JSON valide</th><th>Temps par session</th><th>Observation</th></tr></thead>
+          <tbody>
+            <tr><td><code>google/gemma-4-e4b</code> <b>retenu</b></td><td>8/8</td><td>12,4 s</td><td>Plus léger, aucun montant recopié dans les résumés</td></tr>
+            <tr><td><code>qwen/qwen3.5-9b</code></td><td>8/8</td><td>16,6 s</td><td>Plus précis, mais a recopié un montant client ; réflexion à couper</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Quel que soit le modèle, le tagueur masque tout montant dans les résumés. Le rapport hebdomadaire montre la consommation de Claude Code par intention, par posture et par projet, à partir du décompte que Claude Code écrit lui-même dans chaque transcript.</p>
+    </section>
+
+    <section id="principes">
+      <div class="eyebrow">9 · Principes</div>
+      <h2>Ce qui n'est pas négociable</h2>
+      <ul class="principles">
+        <li><b>Local-first.</b> Tout tourne sur ma machine, aucune synchronisation cloud par défaut.</li>
+        <li><b>Fichiers ouverts.</b> Markdown et YAML ; l'index se reconstruit depuis les fichiers.</li>
+        <li><b>L'humain tranche.</b> Les agents proposent, je valide. Rien n'entre dans <code>memoire/</code> sans moi.</li>
+        <li><b>Indicateurs, pas notes.</b> Aucun score global d'alignement : il deviendrait la cible.</li>
+        <li><b>Dérive ou évolution.</b> Toute alerte propose les deux lectures : revenir à l'intention ou la faire évoluer.</li>
+        <li><b>Moins on stocke, mieux c'est.</b> Résumés plutôt que transcripts, métadonnées plutôt que contenu.</li>
+        <li><b>Modèle interchangeable.</b> API Anthropic ou modèle local via Ollama, selon la configuration.</li>
+        <li><b>Aucun secret dans le coffre.</b> Les clés vivent dans un <code>.env</code> hors Git.</li>
+      </ul>
+    </section>
+
+    <section id="phases">
+      <div class="eyebrow">10 · Phases</div>
+      <h2>Réalisé le 2026-10-17, reste à installer et à vivre</h2>
+      <div class="phases">
+        <div class="phase"><span class="n">Phase 0</span><div><b>Socle</b><p><code>init</code>, <code>status</code>, <code>reindex</code>, import de la mémoire Claude existante. Vérifié : index reconstruit à l'identique ; 67 fiches importées en propositions, source <code>~/.claude</code> inchangée, rien dans <code>memoire/</code>.</p></div><span class="pill on">fait</span></div>
+        <div class="phase"><span class="n">Phase 1</span><div><b>Charte et journal</b><p>Hook, file d'attente, tagueur local, consommation, <code>/charte</code>, revue hebdo. Vérifié sur 10 vraies sessions : fiches sans transcript, tokens par session. Reste : écrire ta charte.</p></div><span class="pill on">fait</span></div>
+        <div class="phase"><span class="n">Phase 2</span><div><b>Passerelle et dérive</b><p>Serveur MCP, scopes, journal des accès, gardien, import claude.ai. Vérifié : un client non déclaré ne reçoit rien, aucun scope sensible ne sort, même listé.</p></div><span class="pill on">fait</span></div>
+        <div class="phase"><span class="n">Phase 3</span><div><b>Anti-bulle et souveraineté</b><p>Auditeur, contradicteur, archiviste, graduation, export chiffrable avec <code>age</code>. Vérifié : une mémoire graduée disparaît de <code>lire_contexte</code> et reste dans son fichier. L'audit réel attend une clé API.</p></div><span class="pill on">fait</span></div>
+        <div class="phase"><span class="n">Phase 4</span><div><b>Ouverture</b><p>Tous les agents peuvent tourner en local (LM Studio ou Ollama). Synchronisation vers un Pod Solid non faite.</p></div><span class="pill">en partie</span></div>
+      </div>
+    </section>
+
+    <section id="ouvert">
+      <div class="eyebrow">11 · Points ouverts</div>
+      <h2>À trancher à l'usage</h2>
+      <div class="open">
+        <div class="card"><h3>Accès de claude.ai</h3><p>Import d'export seulement (local-first strict), ou passerelle exposée sur le réseau avec authentification ? Le scope <code>claude_ai</code> ne sert rien en direct aujourd'hui. Le format de l'export reste à vérifier sur un vrai fichier (<code>--inspecter</code>).</p></div>
+        <div class="card"><h3>Sort de la mémoire Claude actuelle</h3><p>Une fois les 67 propositions triées, faut-il vider les fiches de <code>~/.claude</code> et laisser HARNAIS seul maître, ou garder les consignes en double ?</p></div>
+        <div class="card"><h3>Confiance du tagueur</h3><p>Les modèles locaux déclarent presque toujours 0,9 à 0,95. Toute session sans intention part donc en revue ; la règle sera recalibrée après quelques semaines.</p></div>
+        <div class="card"><h3>Référence de l'auditeur de bulle</h3><p>Le papier « The Echo Chamber of One » (NeurIPS 2026) n'a pas été vérifié. La méthode tient sans lui ; la citation est à confirmer avant tout partage.</p></div>
+      </div>
+    </section>
+  </main>
+</div>

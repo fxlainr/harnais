@@ -1,0 +1,23 @@
+# Qui peut lire quoi. Un client absent de cette liste ne reçoit rien.
+clients:
+  claude_code:
+    lire: [pro, apprentissage, creation]   # quand aucun dossier ni ouverture ne s'applique
+  claude_ai:
+    lire: [pro, apprentissage]
+  defaut:
+    lire: []
+
+# Contextes de travail. Un contexte nommé ici vaut accord : ses scopes sensibles sont servis.
+contextes:
+  pro: [pro, apprentissage, creation, client]
+  perso: [perso, famille, sante, relations, finances, apprentissage, creation]
+  rh: [pro, rh_confidentiel]
+
+# Le dossier de travail décide du contexte (le chemin le plus long l'emporte).
+# Pour une exception, l'utilisateur tape /contexte <nom> : ouvert pour la session seulement.
+dossiers:
+  - {chemin: ~/dev, contexte: pro}
+  # - {chemin: ~/Documents/Perso, contexte: perso}
+
+# Jamais servis hors d'un contexte qui les nomme.
+sensibles: [sante, finances, relations, perso, famille, rh_confidentiel, client]
